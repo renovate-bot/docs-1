@@ -1,21 +1,18 @@
-# NOTE: Changes to this file should also be applied to './test-windows.yml' and './test-translations.yml'
+# NOTE: Changes to this file should also be applied to './test.yml' and './test-translations.yml'
 
-name: Node.js Tests
+name: Node.js Tests - Windows
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches-ignore:
-      - translations
+  workflow_dispatch:
+  schedule:
+    - cron: "50 19 * * *" # once a day at 19:50 UTC / 11:50 PST
 
 env:
   CI: true
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Check out repo
         uses: actions/checkout@v3
@@ -48,7 +45,7 @@ jobs:
         run: npm run check-deps
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix:
@@ -83,10 +80,3 @@ jobs:
 
       - name: Run tests
         run: npx jest tests/${{ matrix.test-group }}/
-
-      - name: Send Slack notification if workflow fails
-        uses: rtCamp/action-slack-notify@master
-        if: failure() && github.ref == 'early-access'
-        env:
-          SLACK_WEBHOOK: ${{ secrets.DOCS_ALERTS_SLACK_WEBHOOK }}
-          SLACK_MESSAGE: "Tests are failing on the `early-access` branch. https://github.com/github/docs-internal/tree/early-access"
