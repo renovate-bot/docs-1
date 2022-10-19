@@ -32,7 +32,7 @@ jobs:
           persist-credentials: 'false'
 
       - name: Setup node
-        uses: actions/setup-node@c46424eee26de4078d34105d3de3cc4992202b1e
+        uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516
         with:
           node-version: 14.x
 
