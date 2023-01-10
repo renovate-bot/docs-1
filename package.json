@@ -113,7 +113,7 @@
     "aws-sdk": "^2.610.0",
     "babel-eslint": "^10.1.0",
     "chalk": "^4.0.0",
-    "commander": "^6.2.0",
+    "commander": "^9.5.0",
     "count-array-values": "^1.2.1",
     "csp-parse": "0.0.2",
     "csv-parse": "^4.8.8",
